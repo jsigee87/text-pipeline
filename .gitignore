@@ -1,1 +1,3 @@
+dist/*
+text_pipeline.egg*
 *__pycache__*
