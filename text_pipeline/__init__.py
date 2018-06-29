@@ -1,6 +1,6 @@
 # placeholder
 
 from .Pipeline import Pipeline
-from .Filtering import Filtering
+from .TokenFilter import TokenFilter
 from .Stemmer import Stemmer
-from .TextTokenizer import TextTokenizer
+from .Tokenizer import Tokenizer
