@@ -5,17 +5,17 @@ Created on 6/26/18
 
 @author: John Sigmon
 
-Last modified: 6/26/18
+Last modified: 7/2/18
 """
 
 import os
 import warnings
 import pickle as pkl
 import unittest
-import TokenFilter as fltr
-import Tokenizer as ctkn
-import Stemmer as stm
-import Pipeline as pipe
+from text_pipeline import TokenFilter
+from text_pipeline import Tokenizer 
+from text_pipeline import Stemmer
+from text_pipeline import Pipeline
 
 ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
 
@@ -43,9 +43,9 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('spacy')
-        f = fltr.TokenFilter('spacy', **params)
-        p = pipe.Pipeline(t, f)
+        t = Tokenizer('spacy')
+        f = TokenFilter('spacy', **params)
+        p = Pipeline(t, f)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output, 
                 'Spacy did not remove stop words')
@@ -66,9 +66,9 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('nltk')
-        f = fltr.TokenFilter('nltk', **params)
-        p = pipe.Pipeline(t, f)
+        t = Tokenizer('nltk')
+        f = TokenFilter('nltk', **params)
+        p = Pipeline(t, f)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output, 
                 'NLTK did not remove stop words')
@@ -89,9 +89,9 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('spacy')
-        f = fltr.TokenFilter('nltk', **params)
-        p = pipe.Pipeline(t, f)
+        t = Tokenizer('spacy')
+        f = TokenFilter('nltk', **params)
+        p = Pipeline(t, f)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output, 
                 'NLTK did not remove stop words')
@@ -112,9 +112,9 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('spacy')
-        f = fltr.TokenFilter('spacy', **params)
-        p = pipe.Pipeline(t, f)
+        t = Tokenizer('spacy')
+        f = TokenFilter('spacy', **params)
+        p = Pipeline(t, f)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output, 
                 'Spacy did not remove non English words')
@@ -135,9 +135,9 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('nltk')
-        f = fltr.TokenFilter('nltk', **params)
-        p = pipe.Pipeline(t, f)
+        t = Tokenizer('nltk')
+        f = TokenFilter('nltk', **params)
+        p = Pipeline(t, f)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output, 
                 'NLTK did not remove non English words')
@@ -158,9 +158,9 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('spacy')
-        f = fltr.TokenFilter('spacy', **params)
-        p = pipe.Pipeline(t, f)
+        t = Tokenizer('spacy')
+        f = TokenFilter('spacy', **params)
+        p = Pipeline(t, f)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output, 
                 'Spacy did not remove numbers')
@@ -181,9 +181,9 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': True
                 }
         
-        t = ctkn.Tokenizer('spacy')
-        f = fltr.TokenFilter('spacy', **params)
-        p = pipe.Pipeline(t, f)
+        t = Tokenizer('spacy')
+        f = TokenFilter('spacy', **params)
+        p = Pipeline(t, f)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output, 
                 'Spacy did not remove punctuation')
@@ -204,9 +204,9 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('spacy')
-        f = fltr.TokenFilter('spacy', **params)
-        p = pipe.Pipeline(t, f)
+        t = Tokenizer('spacy')
+        f = TokenFilter('spacy', **params)
+        p = Pipeline(t, f)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output, 
                 'Spacy did not remove emails')
@@ -227,9 +227,9 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('spacy')
-        f = fltr.TokenFilter('spacy', **params)
-        p = pipe.Pipeline(t, f)
+        t = Tokenizer('spacy')
+        f = TokenFilter('spacy', **params)
+        p = Pipeline(t, f)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output, 
                 'Spacy did not remove urls')
@@ -250,10 +250,10 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('spacy')
-        f = fltr.TokenFilter('spacy', **params)
-        s = stm.Stemmer('spacy')
-        p = pipe.Pipeline(t, f, s)
+        t = Tokenizer('spacy')
+        f = TokenFilter('spacy', **params)
+        s = Stemmer('spacy')
+        p = Pipeline(t, f, s)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output, 
                 'Spacy did not lemmatize') 
@@ -274,10 +274,10 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('spacy')
-        f = fltr.TokenFilter('spacy', **params)
-        s = stm.Stemmer('nltk', stemmer='snowball')
-        p = pipe.Pipeline(t, f, s)
+        t = Tokenizer('spacy')
+        f = TokenFilter('spacy', **params)
+        s = Stemmer('nltk', stemmer='snowball')
+        p = Pipeline(t, f, s)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output, 
                 'NLTK Snowball did not stem')
@@ -298,10 +298,10 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('spacy')
-        f = fltr.TokenFilter('spacy', **params)
-        s = stm.Stemmer('nltk', stemmer='porter')
-        p = pipe.Pipeline(t, f, s)
+        t = Tokenizer('spacy')
+        f = TokenFilter('spacy', **params)
+        s = Stemmer('nltk', stemmer='porter')
+        p = Pipeline(t, f, s)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output, 
                 'NLTK Porter did not stem')
@@ -322,10 +322,10 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('spacy')
-        f = fltr.TokenFilter('spacy', **params)
-        s = stm.Stemmer('nltk', lemmatizer='wordnet')
-        p = pipe.Pipeline(t, f, s)
+        t = Tokenizer('spacy')
+        f = TokenFilter('spacy', **params)
+        s = Stemmer('nltk', lemmatizer='wordnet')
+        p = Pipeline(t, f, s)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output, 
                 'NLTK lemmatiZZZZzer did not lemmatize')
@@ -355,9 +355,9 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('spacy')
-        f = fltr.TokenFilter('spacy', **params)
-        p = pipe.Pipeline(t, f)
+        t = Tokenizer('spacy')
+        f = TokenFilter('spacy', **params)
+        p = Pipeline(t, f)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output) 
     
@@ -386,9 +386,9 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('nltk')
-        f = fltr.TokenFilter('spacy', **params)
-        p = pipe.Pipeline(t, f)
+        t = Tokenizer('nltk')
+        f = TokenFilter('spacy', **params)
+        p = Pipeline(t, f)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output) 
 
@@ -417,9 +417,9 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('spacy')
-        f = fltr.TokenFilter('spacy', **params)
-        p = pipe.Pipeline(t, f)
+        t = Tokenizer('spacy')
+        f = TokenFilter('spacy', **params)
+        p = Pipeline(t, f)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output) 
     
@@ -448,11 +448,16 @@ class TestPipeline(unittest.TestCase):
                 'remove_punct': False
                 }
         
-        t = ctkn.Tokenizer('nltk')
-        f = fltr.TokenFilter('spacy', **params)
-        p = pipe.Pipeline(t, f)
+        t = Tokenizer('nltk')
+        f = TokenFilter('spacy', **params)
+        p = Pipeline(t, f)
         test_output = p.apply(docs)
         self.assertEqual(test_output, expected_output) 
-    
+   
+    def test_freq_filter(self):
+        pass
+
+
+
 if __name__=="__main__":
     unittest.main()

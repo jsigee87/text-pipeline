@@ -9,20 +9,20 @@
 `name`
  to specify which underlying library to use, and a set of sometimes optional parameters to customize functionality. Modules are instantiated as objects and passed to the Pipeline constructor in the order you wish the steps to execute.</p>
 
-## Examples
-<p> Here are several code examples to get you started. The tokenizer module has the following input and output:</p>
+## Quick Start
+<p> Here are several code examples to get you started. As a note, the tokenizer module has the following input and output:</p>
 <ul>
     <li><b>Input:</b>   List of strings representing a list of 'documents'</li>
     <li><b>Output:</b>  List of list of strings representing a list of documents split into words or tokens</li>
 </ul>
-<p> The other modules has the following input and output:</p>
+<p> The other modules have the following input and output:</p>
 <ul>
     <li><b>Input:</b>   List of list of strings representing a list of documents split into words or tokens</li>
     <li><b>Output:</b>  List of list of strings representing a list of documents split into words or tokens</li>
 </ul>
 <p> Please check the documentation below for the specific pipeline module to find out what names and parameters are supported.</p>
 
-#### Example using defaults
+#### Example #1
 
 <pre>
 # Initialize corpus as a list of strings, where each string is a document
@@ -35,7 +35,7 @@ pipeline = tp.Pipeline(t, s)
 cleaned_docs = pipeline.apply(docs)
 </pre>
 
-#### Example using more complicated parameters
+#### Example #2
 
 <pre>
 # Initialize corpus as a list of strings, where each string is a document
@@ -50,11 +50,11 @@ t = tp.Tokenizer('spacy')
 f = tp.TokenFilter('spacy', params)
 s = tp.Stemmer('spacy')
 f_2 = tp.TokenFilter('frequency', 5)
-pipeline = tp.Pipeline(t, f, s)
-cleaned_docs = pipeline.run(docs)
+pipeline = tp.Pipeline(t, f, s, f_2)
+cleaned_docs = pipeline.apply(docs)
 </pre>
 
-#### Example using more complicated parameters 
+#### Example #3 
 
 <pre>
 # Initialize corpus as a list of strings, where each string is a document
@@ -71,7 +71,7 @@ f = tp.TokenFilter(
         )
 s = tp.Stemmer('nltk', stemmer='porter')
 pipeline = tp.Pipeline(t, f, s)
-cleaned_docs = pipeline.run(docs)
+cleaned_docs = pipeline.apply(docs)
 </pre>
 
 ----
@@ -80,10 +80,11 @@ cleaned_docs = pipeline.run(docs)
 You can install the module via `pip` by running `pip install text_pipeline` .
 
 <p>
-To install the various data needed for the underlying modules, we recommend you run the following provided script inside your virtual environment.
+To install the various data needed for the underlying modules, we recommend you run the following command and provided script inside your virtual environment. If you need help setting up a virtual environment please check out <a href="http://docs.python-guide.org/en/latest/dev/virtualenvs/">The Hitchhiker's Guide to Python</a>, we personally recommend virtualenv.
 </p>
 
 <pre>
+$ python -m spacy download en
 $ python3 environment_setup.py
 </pre>
 
@@ -283,7 +284,17 @@ stemmer_4 = Stemmer('nltk', lemmatizer='wordnet')
 
 ----
 
-## Contributing
+## Testing
 
-<p> Contributions are welcome and encouraged. Email (johnsigmon@gmail.com) or pull request are both good ways to contribute. Please follow the same structure and style as the code around you.
+<p> If you wish to test the package after adding functionality or making modifictations, you can run the pre-existing unit tests yourself. From the terminal type:</p>
+<pre>
+$ cd text_pipeline_repository
+$ ls 
+ text_pipeline/    tests/    ...
+$ python -m unittest tests.unit_tests
+</pre>
+
+## Contributing
+<p> Thanks to Sanjana Kapoor for her help in writing this package, and thanks to Blaize Berry and Rachel Brynsvold for their insight and ideas. </p> 
+<p> Contributions are welcome and encouraged. Email (johnsigmon@gmail.com) or pull request are both good ways to contribute.
 </p>

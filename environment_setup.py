@@ -6,9 +6,10 @@
 
 # This assumes you have activated a virtual environment.
 
-import spacy
+
 import nltk
 
-spacy download en
 nltk.download('punkt')
 nltk.download('wordnet')
+nltk.download('words')
+nltk.download('stopwords')
