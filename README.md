@@ -3,7 +3,7 @@
 ----
 
 ## Overview 
-<p> This module contains several classes meant to provide a smooth process to clean text documents for preparation in NLP models, embedding generation, and other processes. Its goal is to provide a flexible way to pipeline and clean text while also allowing quick iteration and the ability to add your own functionality. </p>
+<p> This module contains several classes meant to provide a smooth process to clean text documents for preparation in NLP models, embedding generation, and other processes. Its goal is to provide a flexible way to pipeline and clean text while also allowing quick iteration and the ability to add your own functionality. The source code can be found <a href="https://github.com/jsigee87/text-pipeline">here</a>.</p>
 
 <p> Separate modules are provided to execute individual pipeline steps. Each module requires a parameter called 
 `name`
@@ -80,12 +80,17 @@ cleaned_docs = pipeline.apply(docs)
 You can install the module via `pip` by running `pip install text_pipeline` .
 
 <p>
-To install the various data needed for the underlying modules, we recommend you run the following command and provided script inside your virtual environment. If you need help setting up a virtual environment please check out <a href="http://docs.python-guide.org/en/latest/dev/virtualenvs/">The Hitchhiker's Guide to Python</a>, we personally recommend virtualenv.
+To install the various data needed for the underlying modules, we recommend you run the following commands inside your virtual environment. If you need help setting up a virtual environment please check out <a href="http://docs.python-guide.org/en/latest/dev/virtualenvs/">The Hitchhiker's Guide to Python</a>, we personally recommend virtualenv.
 </p>
 
 <pre>
 $ python -m spacy download en
-$ python3 environment_setup.py
+$ python3
+> import nltk
+> nltk.download('punkt')
+> nltk.download('wordnet')
+> nltk.download('words')
+> nltk.download('stopwords')
 </pre>
 
 ----
