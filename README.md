@@ -24,7 +24,7 @@
 
 #### Example #1
 
-<pre>
+```python
 # Initialize corpus as a list of strings, where each string is a document
 import text_pipeline as tp
 docs = get_my_corpus()
@@ -33,11 +33,11 @@ t = tp.Tokenizer('spacy')
 s = tp.Stemmer('nltk', stemmer='snowball')
 pipeline = tp.Pipeline(t, s)
 cleaned_docs = pipeline.apply(docs)
-</pre>
+```
 
 #### Example #2
 
-<pre>
+```python
 # Initialize corpus as a list of strings, where each string is a document
 import text_pipeline as tp
 docs = get_my_corpus()
@@ -52,11 +52,11 @@ s = tp.Stemmer('spacy')
 f_2 = tp.TokenFilter('frequency', 5)
 pipeline = tp.Pipeline(t, f, s, f_2)
 cleaned_docs = pipeline.apply(docs)
-</pre>
+```
 
 #### Example #3 
 
-<pre>
+```python
 # Initialize corpus as a list of strings, where each string is a document
 import text_pipeline as tp
 docs = get_my_corpus()
@@ -72,7 +72,7 @@ f = tp.TokenFilter(
 s = tp.Stemmer('nltk', stemmer='porter')
 pipeline = tp.Pipeline(t, f, s)
 cleaned_docs = pipeline.apply(docs)
-</pre>
+```
 
 ----
 
@@ -83,7 +83,7 @@ You can install the module via `pip` by running `pip install text_pipeline` .
 To install the various data needed for the underlying modules, we recommend you run the following commands inside your virtual environment. If you need help setting up a virtual environment please check out <a href="http://docs.python-guide.org/en/latest/dev/virtualenvs/">The Hitchhiker's Guide to Python</a>, we personally recommend virtualenv.
 </p>
 
-<pre>
+```bash
 $ python -m spacy download en
 $ python3
 > import nltk
@@ -91,7 +91,7 @@ $ python3
 > nltk.download('wordnet')
 > nltk.download('words')
 > nltk.download('stopwords')
-</pre>
+```
 
 ----
 
@@ -274,7 +274,7 @@ $ python3
 
 #### Example Usage
 
-<pre>
+```python
 stemmer_1 = Stemmer('spacy')
 
 # or
@@ -285,19 +285,19 @@ stemmer_3 = Stemmer('nltk', stemmer='porter')
 
 # or
 stemmer_4 = Stemmer('nltk', lemmatizer='wordnet')
-</pre>
+```
 
 ----
 
 ## Testing
 
 <p> If you wish to test the package after adding functionality or making modifictations, you can run the pre-existing unit tests yourself. From the terminal type:</p>
-<pre>
+```bash
 $ cd text_pipeline_repository
 $ ls 
  text_pipeline/    tests/    ...
 $ python -m unittest tests.unit_tests
-</pre>
+```
 
 ## Contributing
 <p> Thanks to Sanjana Kapoor for her help in writing this package, and thanks to Blaize Berry and Rachel Brynsvold for their insight and ideas. </p> 
