@@ -292,6 +292,7 @@ stemmer_4 = Stemmer('nltk', lemmatizer='wordnet')
 ## Testing
 
 <p> If you wish to test the package after adding functionality or making modifictations, you can run the pre-existing unit tests yourself. From the terminal type:</p>
+
 ```bash
 $ cd text_pipeline_repository
 $ ls 
