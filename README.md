@@ -1,9 +1,9 @@
-# Pipeline Module
+# Text Pipeline Package
 
 ----
 
 ## Overview 
-<p> This module contains several classes meant to provide a smooth process to clean text documents for preparation in NLP models, embedding generation, and other processes. Its goal is to provide a flexible way to pipeline and clean text while also allowing quick iteration and the ability to add your own functionality. The source code can be found <a href="https://github.com/jsigee87/text-pipeline">here</a>.</p>
+<p> This package contains several modules/classes meant to provide a smooth process to clean text documents for preparation in NLP models, embedding generation, and other processes. Its goal is to provide a flexible way to pipeline and clean text while also allowing quick iteration and the ability to add your own functionality. The source code can be found <a href="https://github.com/jsigee87/text-pipeline">here</a>.</p>
 
 <p> Separate modules are provided to execute individual pipeline steps. Each module requires a parameter called 
 `name`
