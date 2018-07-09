@@ -27,7 +27,7 @@ requirements = [
 
 setup(
     name='text_pipeline',
-    version='1.2.0',
+    version='1.2.1',
     description='A module for processing text documents in preparation for' +
         ' various NLP models or other tasks that required cleaned text.',
     #long_description=readme,
