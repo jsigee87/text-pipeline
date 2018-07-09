@@ -17,8 +17,8 @@ _ = os.path.abspath(os.path.dirname(__file__))
 #    print("warning: pypandoc module not found, could not convert Markdown to RST")
 #    read_md = lambda f: open(f, 'r').read()
 
-with open('README.md', 'rb') as f:
-    readme = f.read()
+#with open('README.md', 'rb') as f:
+#    readme = f.read()
 
 requirements = [
     'spacy',
@@ -30,8 +30,8 @@ setup(
     version='1.2.0',
     description='A module for processing text documents in preparation for' +
         ' various NLP models or other tasks that required cleaned text.',
-    long_description=readme,
-    long_description_content_type='text/markdown',
+    #long_description=readme,
+    #long_description_content_type='text/markdown',
     author='John Sigmon and Sanjana Kapoor',
     author_email='johnsigmon@gmail.com, sanjanakapoor793@gmail.com',
     packages=['text_pipeline'],
