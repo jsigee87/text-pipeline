@@ -41,12 +41,12 @@ class TokenFilter():
     remove_punct = False
     threshold = None # Exclusive threshold
 
-    def __init__(self, name, **params):
+    def __init__(self, name, *params):
         '''
 
         :param name {str} name of the filtering you wish to use
 
-        :param **params supported keywords are above as attributes
+        :param *params supported keywords are above as attributes
 
         '''
         
