@@ -18,6 +18,7 @@ import en_core_web_sm
 import logging.config
 from nltk.tokenize import word_tokenize
 from spacy.attrs import ORTH, LEMMA
+from tqdm import tqdm
 
 logger = logging.getLogger()
 ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -28,7 +29,7 @@ class Tokenizer():
     dispatch_fun = None
     to_lower = True
 
-    def __init__(self, name, *params):
+    def __init__(self, name, **params):
         '''
 
         :param name {str} name of the tokenizer you wish to use
@@ -66,11 +67,12 @@ class Tokenizer():
         
         # Tokenize
         tkns = []
-        for doc in docs:
+        for doc in tqdm(docs):
             if self.to_lower is True:
                 doc = doc.lower()
             doc = self.nlp.tokenizer(doc)
             tkns.append([t.text for t in doc])
+            del doc
 
         return tkns 
 
@@ -85,39 +87,11 @@ class Tokenizer():
         
         # Tokenize
         tkns = []
-        for doc in docs:
+        for doc in tqdm(docs):
             if self.to_lower is True:
                 doc = doc.lower()
             doc = word_tokenize(doc)
             tkns.append(doc)
-        
+            del doc
+
         return tkns        
-    
-if __name__ == "__main__":
-    # Must pass in filename to load a list of strings
-    if len(sys.argv) is not 2:
-        print("Usage: python3 Tokenizer.py <docs>")
-        print("docs: path to a pickled list of strings")
-        sys.exit()
-    filename = sys.argv[1]
-    with open(ROOT_PATH + '/' + filename, 'rb') as f:
-        docs = pkl.load(f)
-    
-    # First make sure it works without specifying params
-    #t_1 = Tokenizer('spacy')
-    #t_1.apply(docs[:10])
-
-    #t_2 = Tokenizer('nltk')
-    #t_2.apply(docs[:10])
-
-    # Then try arbitrary unsupported params
-    #t_3 = Tokenizer('spacy', {'unsupportedparam': 'nonsense'})
-    #t_3.apply(docs[:10])
-    
-    # Then try add_special_case
-
-    test_case = [("don't", [{ORTH: "do"}, {ORTH: "n't", LEMMA: "not"}])]
-    params = {'add_special_case': test_case, 'lemmatize': True, 'remove_stops': True}
-    tester = Tokenizer('spacy', params)
-    tester.apply(docs[:20])
-

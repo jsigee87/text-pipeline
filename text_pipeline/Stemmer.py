@@ -13,6 +13,7 @@ import sys
 import json
 import pickle as pkl
 import logging.config
+from tqdm import tqdm
 
 logger = logging.getLogger(__name__)
 ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -61,9 +62,9 @@ class Stemmer():
         
         # Logic works if functionality not expanded. Check if expanded
         if self.stemmer is not None:
-            stems = [[stemmer.stem(w) for w in doc] for doc in docs]
+            stems = [[stemmer.stem(w) for w in doc] for doc in tqdm(docs)]
         else:
-            stems = [[lemmatizer.lemmatize(w) for w in doc] for doc in docs]
+            stems = [[lemmatizer.lemmatize(w) for w in doc] for doc in tqdm(docs)]
         
         logger.debug("Type of return: %s", type(stems))
         logger.debug("Length: %d", len(stems))
@@ -72,36 +73,20 @@ class Stemmer():
     
     def spacy(self, docs):
         '''
-        
+        Uses the lemma attribute of the spacy token.
         
         :params docs {list[list[str]]}
        
         :returns {list[list[str]]} stems of words or tokens
 
         '''
-  
-        # Slower but needed format if more logic is added
-        #stems = []
-        #for doc in docs:
-            # No other options yet, just lemmatize
-        #    stems.append([w.lemma_ for w in Doc(self.nlp.vocab, words=doc)])
-
-        #  faster until more functionality needed
         from spacy.tokens import Doc
-        return [[w.lemma_ for w in Doc(self.nlp.vocab, words=doc)] for doc in docs]
-
-if __name__ == "__main__":
-    import Tokenizer as ct
-    # Must pass in filename to load a list of strings
-    if len(sys.argv) is not 2:
-        print("Usage: python3 Stemmer.py <docs>")
-        print("docs: path to a pickled list of strings")
-        sys.exit()
-    filename = sys.argv[1]
-    with open(ROOT_PATH + '/' + filename, 'rb') as f:
-        docs = pkl.load(f)
-    t = ct.Tokenizer('nltk')
-    s = Stemmer('nltk', 'snowball')
-    docs = t.apply(docs[:10])
-    s.apply(docs)
-
+  
+        stems = []
+        for doc in tqdm(docs):
+            doc = Doc(self.nlp.vocab, words=doc)
+            stems.append([w.lemma_ for w in doc])
+            del doc
+        
+        return stems
+        #return [[w.lemma_ for w in Doc(self.nlp.vocab, words=doc)] for doc in docs]

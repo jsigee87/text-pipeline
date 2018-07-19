@@ -17,6 +17,7 @@ import spacy
 import logging.config
 from spacy.attrs import ORTH, LEMMA
 from spacy.tokens import Doc
+from tqdm import tqdm
 
 logger = logging.getLogger()
 ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -41,7 +42,7 @@ class TokenFilter():
     remove_punct = False
     threshold = None # Exclusive threshold
 
-    def __init__(self, name, *params):
+    def __init__(self, name, **params):
         '''
 
         :param name {str} name of the filtering you wish to use
@@ -103,7 +104,7 @@ class TokenFilter():
         
         # Tokenize
         tkns = []
-        for doc in docs:
+        for doc in tqdm(docs):
             # Intermediate steps are all tokens. Lemmatize at the end.
             # Add unicode text to tkns at end of intermediate steps
             # Pass over each doc multiple times to avoid complicated logic.
@@ -134,7 +135,7 @@ class TokenFilter():
                 doc = [t for t in doc if t.like_url is False]
             
             tkns.append([t.text for t in doc])
-
+            del doc
         
         return tkns 
     
@@ -149,7 +150,7 @@ class TokenFilter():
 
         # Tokenize
         tkns = []
-        for doc in docs:
+        for doc in tqdm(docs):
         
             if self.remove_stops is True:
                 doc = [w for w in doc if w not in self.stop_words]
@@ -158,7 +159,7 @@ class TokenFilter():
                 doc = [w for w in doc if w in self.vocab]
 
             tkns.append(doc)
-            
+            del doc
         return tkns        
 
     def frequency(self, docs):
@@ -175,7 +176,7 @@ class TokenFilter():
         
         # Get frequency counts from doc
         freq_counts = {}
-        for doc in docs:
+        for doc in tqdm(docs):
             for w in doc:
                 if w in freq_counts:
                     freq_counts[w] += 1
@@ -183,17 +184,10 @@ class TokenFilter():
                     freq_counts[w] = 1
 
         # Get list of words that are to be removed
-        remove_list = [w for w in freq_counts if freq_counts[w] < self.threshold]
-        
-        # Make new list of documents without words in remove_list
-        return [[w for w in doc if w not in remove_list] for doc in docs]
+        remove_list = [w for w in tqdm(freq_counts) if freq_counts[w] < self.threshold]
+        remove_list_dict = dict.fromkeys(remove_list, None)
+        del remove_list
+        del freq_counts
 
-if __name__ == "__main__":
-    # Must pass in filename to load a list of strings
-    if len(sys.argv) is not 2:
-        print("Usage: python3 TokenFilter.py <docs>")
-        print("docs: path to a pickled list of strings")
-        sys.exit()
-    filename = sys.argv[1]
-    with open(ROOT_PATH + '/' + filename, 'rb') as f:
-        docs = pkl.load(f)
+        # Make new list of documents without words in remove_list
+        return [[w for w in doc if w not in remove_list_dict] for doc in tqdm(docs)]

@@ -23,11 +23,12 @@ _ = os.path.abspath(os.path.dirname(__file__))
 requirements = [
     'spacy',
     'nltk',
+    'tqdm'
     ]
 
 setup(
     name='text_pipeline',
-    version='1.2.1',
+    version='1.2.2',
     description='A module for processing text documents in preparation for' +
         ' various NLP models or other tasks that required cleaned text.',
     #long_description=readme,
